@@ -13,11 +13,12 @@ ini_set('display_errors', 1);
 		return $database;
     }
     function login($name,$pswd){
-		$database=connect();
+        $salt = getSalt($name);
+        $database=connect();
 		$result=$database->has("user",[
 			"AND" => [
 				"name" => $name,
-				"pswd" => $pswd
+				"pswd" => hash("sha256",$pswd.$salt)
 			]
 		]);
 		return $result;
@@ -84,7 +85,19 @@ ini_set('display_errors', 1);
 		$role=$user[0]['role'];
 		return $role;
 	}
-
+    function getSalt($name){
+        $database=connect();
+        $res=$database->select("user",[
+			"id",
+            "salt"
+		],[
+			"name[=]"=>$name
+		]);
+        if(empty($res))
+            return "";
+	    $salt=$res[0]['salt'];
+		return $salt;
+	}
     function getSecretKey(){
         $key = getKey();
         return $key;
@@ -95,14 +108,15 @@ ini_set('display_errors', 1);
 		$res=$database->insert("user",[
 			"name"=>$name,
 			"mail"=>$mail,
-			"pswd"=>$pswd,
+			"pswd"=>hash('sha256',$pswd.$salt),
             "salt"=>$salt,
 			"role"=>$role
 		]);
-        if($res!=0){
+        $id=$database->id();
+        if($id!=0){
             $key = md5(microtime().rand());
             $res2=$database->insert("secret",[
-    			"iduser"=>$res,
+    			"iduser"=>$id,
     			"key"=>$key,
     			"active"=>true
     		]);
@@ -160,6 +174,8 @@ ini_set('display_errors', 1);
 		],[
 			"iduser[=]"=>$id //verificare che la chiave sia attiva e che sia l'ultima!
 		]);
+        if(empty($res))
+            die("KEY not found");
         return $res[0]['key'];
     }
     function checkSecretKey($secret_key){

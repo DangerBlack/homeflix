@@ -5,13 +5,15 @@
 	if(isLogged()){
 		echo 200;
 	}
-	else
-	if(login($name,$pswd)){
-		$expire=time()+60*60*24*30;
-		setcookie("name", $name, $expire);
-		setcookie("pswd", $pswd, $expire);
-		echo 200;
+	else{
+		if(login($name,$pswd)){
+			$expire=time()+60*60*24*30;
+			setcookie("name", $name, $expire);
+			setcookie("pswd", $pswd, $expire);
+			echo 200;
+		}
+		else
+			echo 403;
 	}
-	else
-		echo 403;
+
 ?>
