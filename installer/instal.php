@@ -18,7 +18,7 @@
         rename('homeflix/archive/hf.sqlite.bkp','homeflix/archive/hf.sqlite');
 
         $HOME_DIR = "/home/danger/Scaricati/";
-        $HIDDEN_PATH = '../glnkgganjagnokgaonawfa/';
+        $HIDDEN_PATH = 'glnkgganjagnokgaonawfa';
         $TMDB_API_KEY = '4f37f56d80e68b3cd19981aed3ce0eaa';
         $DEFAULT_FOLDER ="MOVIE";
 
@@ -29,14 +29,18 @@
             die("#002 ".$HOME_DIR." not found");
         }
         for($i=0;$i<count($FOLDER_PATH);$i++){
-            if(!file_exists($HOME_DIR.$FOLDER_PATH)){
-                die("#002 ".$HOME_DIR.$FOLDER_PATH" not found");
+            if(!file_exists($HOME_DIR.$FOLDER_PATH[$i])){
+                die("#002 ".$HOME_DIR.$FOLDER_PATH[$i]." not found");
             }
         }
 
+        //SYMLINK SOLO SU LINUX!!!
+
+        symlink($HOME_DIR,"homeflix/".$HIDDEN_PATH);
+
         //CONFIGURATING PHP
         $config = '<?php $HOME_DIR = "'.$HOME_DIR.'";'.PHP_EOL.
-        '$HIDDEN_PATH = "'.$HIDDEN_PATH.'";'.PHP_EOL.
+        '$HIDDEN_PATH = "../'.$HIDDEN_PATH.'/";'.PHP_EOL.
         '$TMDB_API_KEY = "'.$TMDB_API_KEY.'";'.PHP_EOL.
         '$DEFAULT_FOLDER ="'.$DEFAULT_FOLDER.'";'.PHP_EOL.
         '$FOLDER_PATH = ['.PHP_EOL;
