@@ -1,2 +1,2 @@
 # homeflix
-A mediacenter for managing movies and audio folder 
+A mediacenter for managing movies folder on your server
