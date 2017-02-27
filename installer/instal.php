@@ -1,8 +1,8 @@
 <?php
 
     //DOWNLOAD THE FILE
-    #$content = file_get_contents('https://github.com/DangerBlack/homeflix/archive/master.zip');
-    #file_put_contents("pack.zip",$content);
+    $content = file_get_contents('https://github.com/DangerBlack/homeflix/archive/master.zip');
+    file_put_contents("pack.zip",$content);
 
     //EXTRACTING THE ZIP FILE
     $zip = new ZipArchive;
@@ -17,9 +17,9 @@
         //MANAGING THE DATABASE
         rename('homeflix/archive/hf.sqlite.bkp','homeflix/archive/hf.sqlite');
 
-        $HOME_DIR = "/home/danger/Scaricati/";
-        $HIDDEN_PATH = 'glnkgganjagnokgaonawfa';
-        $TMDB_API_KEY = '4f37f56d80e68b3cd19981aed3ce0eaa';
+        $HOME_DIR = "/home/USERNAME/FOLDER_WITH_MOVIE/";
+        $HIDDEN_PATH = 'RANDOM_CARACTER_AS_THIS';
+        $TMDB_API_KEY = 'TMDB_API_KEY';
         $DEFAULT_FOLDER ="MOVIE";
 
         $FOLDER_PATH=["MOVIE","MOVIE2"];
