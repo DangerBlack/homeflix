@@ -1,0 +1,4 @@
+<IfModule mod_rewrite.c>
+	RewriteEngine On
+	RewriteRule ^.*key/([a-z0-9]*)/(.*)$ php/key.php?key=$1&movie=$2
+</IfModule>

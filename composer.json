@@ -1,0 +1,5 @@
+{
+    "require": {
+        "php-tmdb/api": "~2.1"
+    }
+}

@@ -1,0 +1,39 @@
+body{
+    color:white !important;
+}
+.description{
+    font-size:1.4em;
+}
+#stars{
+    color:red !important;
+}
+#favorite{
+    color:red !important;
+}
+.full{
+    margin-top: 125px;
+    width: 100%;
+    text-align: center;
+}
+.full a{
+    color:red !important;
+}
+.full a:hover{
+    color:red !important;
+}
+.full a:visited{
+    color:red !important;
+}
+.play{
+    font-size: 150px;
+    text-align: center;
+}
+.play:hover{
+    font-size: 170px;
+    text-shadow: 2px 2px 10px white;
+}
+.bgwide{
+    background-size: cover;
+    background-repeat: no-repeat;
+    height:400px;
+}

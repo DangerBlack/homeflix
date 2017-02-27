@@ -1,0 +1,15 @@
+body {
+  padding-top: 50px;
+  background-color: black !important;
+}
+.shorten{
+    margin-left:50px !important;
+    margin-right:50px !important;
+}
+button.right{
+	float:right;
+	margin-bottom:2px;
+}
+.space{
+	margin-top:5px;
+}

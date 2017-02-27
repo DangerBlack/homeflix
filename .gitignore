@@ -1,0 +1,8 @@
+glnkgganjagnokgaonawfa
+archive/*.jpg
+archive/hf.sqlite
+archive/bigphoto/*
+archive/photo/*
+archive/tmdb/*
+php/config.php
+vendor/*

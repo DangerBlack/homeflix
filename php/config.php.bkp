@@ -1,0 +1,12 @@
+<?php
+    $HOME_DIR = "PATH_TO_MOVIE_FOLDER";
+    $HIDDEN_PATH = '../VERY_LONG_AND_RANDOM_STRING/';//this should be seecret as hell (YOU SHOULD MAKE ln -s PATH_TO_MOVIE_FOLDER VERY_LONG_AND_RANDOM_STRING in homeflix)
+
+    $TMDB_API_KEY = 'TMDB_API_KEY';
+
+    $DEFAULT_FOLDER ="MOVIE";
+    $FOLDER_PATH = [
+        "MOVIE"=>"Film",
+        "MOVIE2"=>"Serie TV"
+    ];
+?>
