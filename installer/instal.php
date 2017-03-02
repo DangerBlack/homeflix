@@ -155,6 +155,36 @@ ini_set('display_errors', 1);
      <!-- Latest compiled and minified JavaScript -->
      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
      <script type="text/javascript" >
+         function createNew(){
+           var dati={};
+           dati["name"]=$("#inName").val();
+           dati["mail"]=$("#inMail").val();
+           dati["pswd"]=$("#inPswd").val();
+           dati["HOME_DIR"]=$("#inHOME_DIR").val();
+           dati["TMDB_API_KEY"]=$("#inTMDB_API_KEY").val();
+           dati["DEFAULT_FOLDER"]=$("#folder0").val();
+           var tempFolder="";
+           var tempFolderName="";
+           var val = parseInt($("#more").val());
+           for(var i=0;i<val;i++){
+             var tmpF= $("#folder"+i).val();
+             var tmpN= $("#foldername"+i).val();
+             tempFolder+=tmpF+",";
+             tempFolderName+=tmpN+",";
+           }
+           tempFolder=tempFolder.substring(0, tempFolder.length - 1);
+           tempFolderName=tempFolderName.substring(0, tempFolderName.length - 1);
+
+           dati["FOLDER_PATH"]=tempFolder;
+           dati["FOLDER_NAME"]=tempFolderName;
+
+           $.post("instal.php",dati,function(data){
+          		if(data==200){
+                alert("Everything is purrfect!")
+          			//TODO In realtà non fa nulla... gestire errori
+          		}
+          });
+         }
          function init(){
            $("#more").click(function(){
              var val=parseInt($(this).val());
@@ -253,7 +283,7 @@ ini_set('display_errors', 1);
             			$('#progress-bar').css('width', valeur+'%').attr('aria-valuenow', valeur);
             			$('#progress-bar').text(valeur+"%");
             			if(step==totStep){
-            				createNewUser();
+            				createNew();
             			}
             		}else{
             			showError(valida.error);
