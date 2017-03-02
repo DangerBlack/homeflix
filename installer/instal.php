@@ -59,6 +59,9 @@ ini_set('display_errors', 1);
 
           //MANAGING THE DATABASE
           rename('homeflix/archive/hf.sqlite.bkp','homeflix/archive/hf.sqlite');
+          if(!chmod('homeflix/archive/hf.sqlite',0775)){
+              die("#008 Unable to change permission on hf.sqlite!");
+          }
 
           //SYMLINK SOLO SU LINUX!!!
 
@@ -80,15 +83,51 @@ ini_set('display_errors', 1);
 
 
           //TESTING DB TODO
+          require_once("homeflix/php/Medoo.php");
+          function connect(){
+      		$database = new Medoo([
+                      // required
+                      'database_type' => 'sqlite',
+                      'database_file' => 'homeflix/archive/hf.sqlite'
+              ]);
+      		return $database;
+          }
+          function insertUser($name,$mail,$pswd,$role){
+      		$database=connect();
+              $salt = md5(microtime().rand());
+      		$res=$database->insert("user",[
+      			"name"=>$name,
+      			"mail"=>$mail,
+      			"pswd"=>hash('sha256',$pswd.$salt),
+                  "salt"=>$salt,
+      			"role"=>$role
+      		]);
+              $id=$database->id();
+              if($id!=0){
+                  $key = md5(microtime().rand());
+                  $res2=$database->insert("secret",[
+          			"iduser"=>$id,
+          			"key"=>$key,
+          			"active"=>true
+          		]);
+              }else{
+                  die("500");
+              }
+      		return $res;
+      	  }
 
           //CREATING ROOT USER
-          require_once("homeflix/php/query.php");
           $role=0;
           $res = insertUser($name,$mail,$pswd,$role);
           if($res==0){
             die("#004 unable to read or write on the database!");
           }
-          exit(201);
+
+          if(!unlink("instal.php")){
+              die("#009 unable to erase the installer!");
+          }
+
+          die("201");
       }else{
           die("#001 fail to open the zip packet!");
       }
@@ -160,7 +199,7 @@ ini_set('display_errors', 1);
            $("#more").click(function(){
              var val=parseInt($(this).val());
              val=val+1;
-             $("#FOLDER").append('<tr><td><input type="folder'+val+'" placeholder="MOVIES"/></td><td><input type="foldername'+val+'" placeholder="Movie"/></td></tr>');
+             $("#FOLDER").append('<tr><td><input id="folder'+val+'" placeholder="MOVIES"/></td><td><input id="foldername'+val+'" placeholder="Movie"/></td></tr>');
              $(this).val(val);
            });
            function showError(error){
@@ -227,12 +266,12 @@ ini_set('display_errors', 1);
                     var tmpN= $("#foldername"+i).val();
                     if(typeof(tmpF)==="undefined" || tmpF==""){
               				res.ok=false;
-              				res.error="One of the field was left blank!";
+              				res.error="One of the folder path was left blank!";
               				return res;
               			}
                     if(typeof(tmpN)==="undefined" || tmpN==""){
               				res.ok=false;
-              				res.error="One of the field was left blank!";
+              				res.error="One of the folder name was left blank!";
               				return res;
               			}
                   }
@@ -286,14 +325,15 @@ ini_set('display_errors', 1);
 
               $.post("instal.php",dati,function(data){
              		if(data==201){
-                   alert("Everything is purrfect!")
+                        alert("Everything is purrfect!");
+                        location.reload("homeflix/index.html");
              			//TODO In realtà non fa nulla... gestire errori
              		}else{
-                   showError(data);
-                   for(var i=1;i<=3;i++)
-                    $(".step"+i).hide();
-                   $(".step0").show();
-                 }
+                       showError(data);
+                       for(var i=1;i<=3;i++)
+                            $(".step"+i).hide();
+                       $(".step0").show();
+                   }
              });
             }
          }
