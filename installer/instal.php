@@ -11,8 +11,8 @@ ini_set('display_errors', 1);
       $TMDB_API_KEY = $_POST['TMDB_API_KEY'];
       $DEFAULT_FOLDER =$_POST["DEFAULT_FOLDER"];
 
-      $FOLDER_PATH=$_POST['FOLDER_PATH'];
-      $FOLDER_NAME=$_POST['FOLDER_PATH'];
+      $FOLDER_PATH=explode(',',$_POST['FOLDER_PATH']);
+      $FOLDER_NAME=explode(',',$_POST['FOLDER_PATH']);
 
       $name=$_POST['name'];
       $mail=$_POST['mail'];
@@ -35,7 +35,7 @@ ini_set('display_errors', 1);
       //CHECK THE SYSTEM!
 
       if(!function_exists('sqlite_open')) {
-         die("#005 php-sqlite not installed!");
+         die("#005 php5-sqlite (php5-cli/php5-dev/libsqlite3-0/libsqlite3-dev) not installed!");
       }
       if (version_compare(phpversion(), '5.4', '<')) {
           die("#006 php version is not enought high! Upgrade to 5.4 or upper");
@@ -87,7 +87,7 @@ ini_set('display_errors', 1);
           if($res==0){
             die("#004 unable to read or write on the database!");
           }
-
+          exit(201);
       }else{
           die("#001 fail to open the zip packet!");
       }
@@ -155,36 +155,6 @@ ini_set('display_errors', 1);
      <!-- Latest compiled and minified JavaScript -->
      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
      <script type="text/javascript" >
-         function createNew(){
-           var dati={};
-           dati["name"]=$("#inName").val();
-           dati["mail"]=$("#inMail").val();
-           dati["pswd"]=$("#inPswd").val();
-           dati["HOME_DIR"]=$("#inHOME_DIR").val();
-           dati["TMDB_API_KEY"]=$("#inTMDB_API_KEY").val();
-           dati["DEFAULT_FOLDER"]=$("#folder0").val();
-           var tempFolder="";
-           var tempFolderName="";
-           var val = parseInt($("#more").val());
-           for(var i=0;i<val;i++){
-             var tmpF= $("#folder"+i).val();
-             var tmpN= $("#foldername"+i).val();
-             tempFolder+=tmpF+",";
-             tempFolderName+=tmpN+",";
-           }
-           tempFolder=tempFolder.substring(0, tempFolder.length - 1);
-           tempFolderName=tempFolderName.substring(0, tempFolderName.length - 1);
-
-           dati["FOLDER_PATH"]=tempFolder;
-           dati["FOLDER_NAME"]=tempFolderName;
-
-           $.post("instal.php",dati,function(data){
-          		if(data==200){
-                alert("Everything is purrfect!")
-          			//TODO In realtà non fa nulla... gestire errori
-          		}
-          });
-         }
          function init(){
            $("#more").click(function(){
              var val=parseInt($(this).val());
@@ -251,7 +221,7 @@ ini_set('display_errors', 1);
             		}
                 case 3:{
                   var val = parseInt($("#more").val());
-                  for(var i=0;i<val;i++){
+                  for(var i=0;i<=val;i++){
                     var tmpF= $("#folder"+i).val();
                     var tmpN= $("#foldername"+i).val();
                     if(typeof(tmpF)==="undefined" || tmpF==""){
@@ -289,6 +259,42 @@ ini_set('display_errors', 1);
             			showError(valida.error);
             		}
             });
+            function createNew(){
+              var dati={};
+              dati["install"]=true;
+              dati["name"]=$("#inName").val();
+              dati["mail"]=$("#inMail").val();
+              dati["pswd"]=$("#inPswd").val();
+              dati["HOME_DIR"]=$("#inHOME_DIR").val();
+              dati["TMDB_API_KEY"]=$("#inTMDB_API_KEY").val();
+              dati["DEFAULT_FOLDER"]=$("#folder0").val();
+              var tempFolder="";
+              var tempFolderName="";
+              var val = parseInt($("#more").val());
+              for(var i=0;i<=val;i++){
+                var tmpF= $("#folder"+i).val();
+                var tmpN= $("#foldername"+i).val();
+                tempFolder+=tmpF+",";
+                tempFolderName+=tmpN+",";
+              }
+              tempFolder=tempFolder.substring(0, tempFolder.length - 1);
+              tempFolderName=tempFolderName.substring(0, tempFolderName.length - 1);
+
+              dati["FOLDER_PATH"]=tempFolder;
+              dati["FOLDER_NAME"]=tempFolderName;
+
+              $.post("instal.php",dati,function(data){
+             		if(data==201){
+                   alert("Everything is purrfect!")
+             			//TODO In realtà non fa nulla... gestire errori
+             		}else{
+                   showError(data);
+                   for(var i=1;i<=3;i++)
+                    $(".step"+i).hide();
+                   $(".step0").show();
+                 }
+             });
+            }
          }
          $(document).ready(function(){
            init();
@@ -400,10 +406,10 @@ ini_set('display_errors', 1);
                   </tr>
                   <tr>
                     <td>
-                      <input type="folder0" placeholder="MOVIES"/>
+                      <input id="folder0" placeholder="MOVIES"/>
                     </td>
                     <td>
-                      <input type="foldername0" placeholder="Movie"/>
+                      <input id="foldername0" placeholder="Movie"/>
                     </td>
                   </tr>
                 </table>
