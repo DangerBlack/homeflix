@@ -34,7 +34,8 @@ ini_set('display_errors', 1);
 
       //CHECK THE SYSTEM!
 
-      if(!function_exists('sqlite_open')) {
+      $version = SQLite3::version();
+      if($version<=0) {
          die("#005 php5-sqlite (php5-cli/php5-dev/libsqlite3-0/libsqlite3-dev) not installed!");
       }
       if (version_compare(phpversion(), '5.4', '<')) {
