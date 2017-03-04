@@ -37,3 +37,18 @@ body{
     background-repeat: no-repeat;
     height:400px;
 }
+
+.modal-content{
+    color:black !important;
+}
+.modal-body{
+	min-height:250px;
+}
+#commento{
+	min-height:200px;
+    width:100%;
+}
+.rightText{
+	float:right;
+	font-size:0.8em;
+}

@@ -385,4 +385,35 @@ ini_set('display_errors', 1);
 		]);
         return $res;
     }
+
+    function addPost($idmovie,$mex,$star){
+        $iduser=getId();
+        $database=connect();
+		$res=$database->insert("post",[
+			"idmovie"=>$idmovie,
+            "iduser"=>$iduser,
+            "mex"=>$mex,
+            "star"=>$star
+		]);
+        return $res;
+    }
+
+    function getPost($idmovie){
+        $database=connect();
+		$res=$database->select("post",[
+            "[>]user"=>["iduser"=>"id"]
+        ],[
+            "user.name",
+            "user.img",
+            "post.iduser",
+            "post.iduser",
+            "post.mex",
+            "post.star",
+            "post.time"
+		],[
+            "post.idmovie[=]"=>$idmovie,
+            "ORDER"=>["time"=>"DESC"],
+        ]);
+        return $res;
+    }
 ?>

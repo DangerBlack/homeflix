@@ -82,7 +82,8 @@
                       <p id="favorite"><span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span> Preferiti</p>
                       <p><a href="#" class="youtube"><span class="glyphicon glyphicon-facetime-video" aria-hidden="true"></span> TRAILER</a></p>
                       <p><a href="#" class="details"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> DETAILS</a></p>
-                      <p><a href="#" class="comment"><span class="glyphicon glyphicon-comment" aria-hidden="true"></span> COMMENTS</a></p>
+                      <p><a href="#" class="comment addComment" data-toggle="modal" data-target="#myModal" data-whatever="@Commento"><span class="glyphicon glyphicon-comment" aria-hidden="true"></span> COMMENTS</a></p>
+
                   </p>
 
               </div>
@@ -96,8 +97,32 @@
                   <ul id="watched"></ul>
               </div>
           </div>
+          <div class="row">
+              <div id="postlist" class="col-md-12">
+              </div>
+          </div>
       </div>
 
     </div><!-- /.container -->
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+          </div>
+          <div class="modal-body">
+            ...
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button id="send" type="button" class="btn btn-primary">Send</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </body>
 </html>

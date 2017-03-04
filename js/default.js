@@ -27,3 +27,35 @@ function lazyScanFolders(){
 		}
 	});
 }
+
+function wrapUrlPost(post){
+	post=post.replace(/(https?:\/\/)?[a-z0-9.]*\.[a-z0-9#\/?=]+/gi,function(x){
+		var url=x;
+		if(url.indexOf("http")!=0){
+			url="http://"+url;
+		}
+		return '<a href="'+url+'" target="_blank" >'+x+'</a>';
+	});
+	return post;
+}
+
+function toHRData(data){
+	if(data!=null){
+		var split=data.split('-');
+		if(split.length==3)
+			return split[2]+'/'+split[1]+'/'+split[0];
+	}
+	return '';
+}
+function toDBData(data){
+	if(data!=null){
+		console.log(data);
+		var split=data.split("/");
+		if(split.length==3){
+			data=split[2]+'-'+split[1]+'-'+split[0];
+			console.log(data);
+			return data;
+		}
+	}
+	return '';
+}
