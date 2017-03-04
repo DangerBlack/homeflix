@@ -248,6 +248,17 @@ ini_set('display_errors', 1);
         $res = $res[0];
         return $res['id'];
     }
+
+    function getMovieHashFromId($id){
+        $database=connect();
+        $res=$database->select("movie",[
+            "hash",
+		],[
+			"id[=]"=>$id
+		]);
+        $res = $res[0];
+		return $res['hash'];
+    }
     function getMovie($hash){
         $database=connect();
         $res=$database->select("movie",[
@@ -413,6 +424,50 @@ ini_set('display_errors', 1);
 		],[
             "post.idmovie[=]"=>$idmovie,
             "ORDER"=>["time"=>"DESC"],
+        ]);
+        return $res;
+    }
+
+
+    function initFed(){
+        $url="local";
+        $secret = substr(md5(microtime().rand()),0,10);
+        addFed($url,$secret);
+        return $secret;
+    }
+    function getFedSecret(){
+        $res=$database->select("federation",[
+            "secret"=>$secret
+		],
+        [
+            "url[=]"=>"local"
+        ]);
+        return $res[0]['secret'];
+    }
+    function addFed($url,$secret){
+        $iduser=getId();
+        $database=connect();
+		$res=$database->insert("federation",[
+			"url"=>$url,
+            "secret"=>$secret
+		]);
+        return $res;
+    }
+    function checkFed($secret){
+        $localSecret = getFedSecret();
+        if($localSecret === $secret){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    function getFed(){
+        $database=connect();
+		$res=$database->select("federation",[
+			"url"=>$url,
+            "secret"=>$secret
+		],[
+            "url[!]"=>"local"
         ]);
         return $res;
     }
