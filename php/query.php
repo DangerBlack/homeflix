@@ -79,6 +79,11 @@ ini_set('display_errors', 1);
 		]);
 		return $res;
 	}
+    /*
+        0: root
+        1: admin
+        2: user
+    */
     function getRole(){
 		$id=getId();
 		$user=getUser($id);
@@ -436,8 +441,9 @@ ini_set('display_errors', 1);
         return $secret;
     }
     function getFedSecret(){
+        $database=connect();
         $res=$database->select("federation",[
-            "secret"=>$secret
+            "secret"
 		],
         [
             "url[=]"=>"local"
@@ -464,8 +470,8 @@ ini_set('display_errors', 1);
     function getFed(){
         $database=connect();
 		$res=$database->select("federation",[
-			"url"=>$url,
-            "secret"=>$secret
+			"url",
+            "secret"
 		],[
             "url[!]"=>"local"
         ]);
