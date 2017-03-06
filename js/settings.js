@@ -119,6 +119,19 @@ function initSettings(){
                   });
                 });
           }
+          if(recipient=="@addFed"){
+            modal.find('.modal-title').html("Add a Federated Server");
+            modal.find('.modal-body').html('<p class="space"><label>Name: </label> <input id="form-fed-name" class="form-control" type="text" placeholder="Federation alias" /></p>'+
+                                            '<p class="space"><label>Url: </label> <input id="form-url" class="form-control" type="text" placeholder="127.0.0.1" /></p>'+
+                                            '<p class="space"><label>Secret: </label> <input id="form-secret" class="form-control" type="text" placeholder="password" /></p>');
+
+            $("#send").click(function(){
+              var name=$("#form-fed-name").val();
+              var url=$("#form-url").val();
+              var secret=$("#form-secret").val();
+              addFed(name,url,secret);
+            });
+          }
     });
     $.get("php/getUserList.php",function(data){
         var js=JSON.parse(data);
@@ -153,11 +166,53 @@ function initSettings(){
             }
         })
     });
+
+    $.get("php/getFedList.php",function(data){
+        var js=JSON.parse(data);
+        for(var i=0;i<js.length;i++){
+            var p=js[i];
+            $("#fedList").append('<li class="media">'+
+                                    '<div class="list-group-item">'+
+                                        '<p>'+
+                                          '<button class="btn btn-xs btn-danger deleteUser" value="'+p.id+'" nome="'+p.name+'"> <span class="glyphicon glyphicon-trash"></span> </button> '+
+                                          '<span><b>'+p.name+':</b></span> '+
+                                          '<span>'+p.url+'</span>'+
+                                        '</p>'+
+                                    '</div>'+
+                               '</li>');
+        }
+
+        $(".deleteFed").click(function(){
+            var id=$(this).val();
+            var nome=$(this).attr('name');
+            var risp = prompt('Do you like to erase the element '+name+'?\nProcess can not be inverted!!!\nPlease digit Yes', "No");
+            if ((risp == "yes")||(risp == "Yes")) {
+                $.post('php/deleteFed.php',{'id':id},function(data){
+                    if(data==204){
+                        console.log("deleted ! ");
+                        location.reload();
+                    }
+                });
+            }
+        });
+
+        $("#fedsecret").load("php/getFedSecret.php");
+    });
+
+
 }
 function addUser(name,mail,pswd,role){
     $.post("php/addUser.php",{"name":name,"mail":mail,"pswd":pswd,"role":role},function(data){
         if(data==201){
-            alert("Utente creato con successo");
+            alert("User created succefully");
+        }
+    });
+}
+
+function addFed(name,url,secret){
+    $.post("php/addFed.php",{"name":name,"url":url,"secret":secret},function(data){
+        if(data==201){
+            alert("Federation server added");
         }
     });
 }

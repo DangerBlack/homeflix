@@ -3,8 +3,9 @@
     if(!isLogged())
         die("Non siete loggato");
 
-    @$url = $_GET['url'];
-    @$secret = $_GET['$secret'];
-    echo json_encode(addFed($url,$secret));
-
+    @$name = $_POST['name'];
+    @$url = $_POST['url'];
+    @$secret = $_POST['secret'];
+    addFed($name,$url,$secret);
+    echo 201;
  ?>

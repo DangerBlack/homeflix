@@ -450,13 +450,15 @@ ini_set('display_errors', 1);
         ]);
         return $res[0]['secret'];
     }
-    function addFed($url,$secret){
+    function addFed($name,$url,$secret){
         $iduser=getId();
         $database=connect();
 		$res=$database->insert("federation",[
+            "name"=>$name,
 			"url"=>$url,
             "secret"=>$secret
 		]);
+        var_dump($database->error());
         return $res;
     }
     function checkFed($secret){
@@ -470,6 +472,8 @@ ini_set('display_errors', 1);
     function getFed(){
         $database=connect();
 		$res=$database->select("federation",[
+            "id",
+            "name",
 			"url",
             "secret"
 		],[
