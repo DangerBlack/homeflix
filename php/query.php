@@ -437,7 +437,7 @@ ini_set('display_errors', 1);
     function initFed(){
         $url="local";
         $secret = substr(md5(microtime().rand()),0,10);
-        addFed($url,$secret);
+        addFed("",$url,$secret);
         return $secret;
     }
     function getFedSecret(){
@@ -448,7 +448,11 @@ ini_set('display_errors', 1);
         [
             "url[=]"=>"local"
         ]);
-        return $res[0]['secret'];
+        if(empty($res)){
+            return initFed();
+        }else{
+            return $res[0]['secret'];
+        }
     }
     function addFed($name,$url,$secret){
         $iduser=getId();
@@ -458,7 +462,6 @@ ini_set('display_errors', 1);
 			"url"=>$url,
             "secret"=>$secret
 		]);
-        var_dump($database->error());
         return $res;
     }
     function checkFed($secret){

@@ -23,17 +23,20 @@
 
 		$fed=getFed();
 		foreach ($fed as $f) {
+			//echo 'http://'.$f['url'].'/homeflix/php/getRemotePost.php?hash='.$hash.'&secret='.$f['secret'];
 			$postRes = get_url($f['url'].'/php/getRemotePost.php?hash='.$hash.'&secret='.$f['secret']);
+			//var_dump($postRes);
 			if($postRes!=="403"){
 				if($postRes!=="404"){
 					$postT=json_decode($postRes);
-					array_push($post,$postT);
+					if($postT !== null)
+						$post = array_merge($post,$postT);
 				}
 			}
 		}
 		return $post;
 	}
 
-	//$post = getRemote($idmovie,$post); //TODO ENABLE THIS FEATURE
+	$post = getRemote($idmovie,$post); //TODO ENABLE THIS FEATURE
 	echo json_encode($post);
 ?>

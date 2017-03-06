@@ -122,7 +122,7 @@ function initSettings(){
           if(recipient=="@addFed"){
             modal.find('.modal-title').html("Add a Federated Server");
             modal.find('.modal-body').html('<p class="space"><label>Name: </label> <input id="form-fed-name" class="form-control" type="text" placeholder="Federation alias" /></p>'+
-                                            '<p class="space"><label>Url: </label> <input id="form-url" class="form-control" type="text" placeholder="127.0.0.1" /></p>'+
+                                            '<p class="space"><label>Url: </label> <input id="form-url" class="form-control" type="text" placeholder="http://127.0.0.1/homeflix" /></p>'+
                                             '<p class="space"><label>Secret: </label> <input id="form-secret" class="form-control" type="text" placeholder="password" /></p>');
 
             $("#send").click(function(){
