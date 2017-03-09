@@ -196,7 +196,11 @@ function initSettings(){
             }
         });
 
-        $("#fedsecret").load("php/getFedSecret.php");
+        $("#fedsecret").load("php/getFedSecret.php",function(data){
+            if(data==403){
+                $(".federationpanel").hide();
+            }
+        });
     });
 
 
