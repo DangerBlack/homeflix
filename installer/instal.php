@@ -127,6 +127,14 @@ ini_set('display_errors', 1);
               die("#009 unable to erase the installer!");
           }
 
+          /*
+          TODO install composer and update!!!
+          curl -sS https://getcomposer.org/installer | php
+          rm composer.lock
+          php composer.phar install
+          */
+
+
           die("201");
       }else{
           die("#001 fail to open the zip packet!");
