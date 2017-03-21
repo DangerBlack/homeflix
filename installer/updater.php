@@ -36,7 +36,7 @@
             //echo $file."\n";
             $complete_path_new = $new."/".$file;
             $complete_path_old = $old."/".$file;
-            if($file != "." && $file != ".." && $file != $HIDDEN_PATH_TMP && $file!="archive" && $file!="config.php" && $file!="vendor" && $file!="pack.zip" && $file!="homeflix-master"){
+            if($file != "." && $file != ".." && $file != $HIDDEN_PATH_TMP && $file!="archive" && $file!="config.php" && $file!="vendor" && $file!="pack.zip" && $file!="homeflix-master" && $file!="installer"){
                 if(is_dir($complete_path_old)){
                     $modifiche+= compare_folder($complete_path_old,$complete_path_new);
                 }else{
@@ -167,7 +167,6 @@
         if(!deleteDirectory("homeflix-master")){
             die("#006 unable to erase the homeflix-master!\n");
         }
-
     }else{
         die("#001 fail to open the zip packet!\n");
     }
