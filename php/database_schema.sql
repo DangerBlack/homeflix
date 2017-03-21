@@ -61,3 +61,11 @@ CREATE TABLE federation(
     secret TEXT NOT NULL,
     name TEXT
 );
+
+CREATE TABLE version(
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    version INTEGER UNIQUE NOT NULL,
+    status INT NOT NULL,
+    description TEXT
+    time DATETIME DEFAULT CURRENT_TIMESTAMP
+);

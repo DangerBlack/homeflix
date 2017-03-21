@@ -16,10 +16,15 @@ ini_set('display_errors', 1);
 
         if($old_f === false){
             echo "Crea cartella!!!\n";
+            mkdir($old, 0775);
             return 0;
         }
         if(($new_f === false)){
             echo $new." non sono esistenti questi path!\n";
+            $res = rmdir($old);
+            if(!$res){
+                echo "#004 ERROR: CAN NOT DELETE DIR! ".$old."\n";
+            }
             return 0;
         }
 
@@ -33,14 +38,24 @@ ini_set('display_errors', 1);
                 }else{
                 if(! in_array($file, $new_f)){
                     $modifiche++;
-                    echo "CANCELLO FILE ".$complete_path_new."\n";
+                    echo "DELETE FILE ".$complete_path_old."\n";
+                    $res = unlink($complete_path_old);
+                    if(!$res){
+                        echo "#002 ERROR: CAN NOT DELETE FILE! ".$complete_path_old."\n";
+                    }
                     //cancella il file perchè non serve più
                 }else{
+                        $key = array_search($file, $new_f);
+                        unset($new_f[$key]);
                         if( sha1_file($complete_path_old) === sha1_file($complete_path_new)){
                             //nothing do do
                         }else{
                             $modifiche++;
-                            echo "COPIO FILE ".$complete_path_new."\n";
+                            echo "COPY FILE ".$complete_path_new."\n";
+                            $res = unlink($complete_path_new,$complete_path_old);
+                            if(!$res){
+                                echo "#003 ERROR: CAN NOT COPY FILE! ".$complete_path_old."\n";
+                            }
                             //copia il file!
                         }
                     }
@@ -48,7 +63,35 @@ ini_set('display_errors', 1);
             }
         }
 
+        echo "Esistono nuove ".count($new_f)." cartelle/file non copiati\n";
+        foreach($new_f as $file){
+            $complete_path_new = $new."/".$file;
+            $complete_path_old = $old."/".$file;
+            $modifiche+= compare_folder($complete_path_old,$complete_path_new);
+        }
+
         return $modifiche;
+    }
+    function connect(){
+      require_once("homeflix/php/Medoo.php");
+      $database = new Medoo([
+                // required
+                'database_type' => 'sqlite',
+                'database_file' => 'homeflix/archive/hf.sqlite'
+        ]);
+      return $database;
+    }
+    function getVersion(){
+      $database=connect();
+      $res=$database->select("version",[
+          "id",
+          "version"
+      ],[
+          "post.status[=]"=>1,
+          "ORDER"=>["time"=>"DESC"],
+      ]);
+
+      return $res[0]['version'];
     }
 
     //DOWNLOAD THE FILE
@@ -60,12 +103,35 @@ ini_set('display_errors', 1);
     if ($zip->open('pack.zip') === TRUE) {
         $zip->extractTo('.');
         $zip->close();
-        echo "modifiche fatte: ".compare_folder("homeflix","homeflix-master");
-        //verifica file aggiornamento e applica le novità del file di aggiornamento
+        $res = compare_folder("homeflix","homeflix-master");
+        echo "modifiche fatte: ".$res;
+
+        $v = getVersion();
+
+        @$update = scandir("homeflix-master/installer/update/");
+
+        foreach ($update as $file) {
+            if($file != "." && $file != ".."){
+                $num = explode("_",$file)[1];  //FILE SHOULD HAVE THIS FORM update_1.0_v.php => 1.0 versione
+                $num = floatval($num);
+                if($num>$v){
+                    echo "INSTALLING THE VERSION ".$file."\n";
+                    include("homeflix-master/installer/update/".$file);//RUN THE PROCESS
+                    echo "INSTALLED \n";
+                }
+            }
+        }
+
         //php composer.phar update!!!
 
 
-        //aggiungi il numero di versione al db
+        if(!unlink("pack.zip")){
+            die("#005 unable to erase the pack.zip!");
+        }
+
+        if(!rmdir("homeflix-master")){
+            die("#006 unable to erase the homeflix-master!");
+        }
 
     }else{
         die("#001 fail to open the zip packet!");
