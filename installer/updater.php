@@ -156,7 +156,9 @@
         }
 
         //php composer.phar update!!!
-
+        shell_exec("cd ".$BASE_PATH.";curl -sS https://getcomposer.org/installer | php");
+        shell_exec("cd ".$BASE_PATH.";php composer.phar update");
+        //shell_exec("cd ".$BASE_PATH.";composer update");
 
         if(!unlink("pack.zip")){
             die("#005 unable to erase the pack.zip!\n");

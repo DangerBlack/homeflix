@@ -134,6 +134,11 @@ ini_set('display_errors', 1);
           php composer.phar install
           */
 
+          shell_exec("curl -sS https://getcomposer.org/installer | php");
+          unlink("composer.lock");
+          shell_exec("php composer.phar install");
+
+
           //REMOVE pack.zip TODO
 
           die("201");
