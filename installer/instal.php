@@ -116,12 +116,28 @@ ini_set('display_errors', 1);
       		return $res;
       	  }
 
+          function setVersion($version){
+            $database=connect();
+            $res=$database->insert("version",[
+                "version"=>$version
+            ]);
+            return $res;
+          }
+
           //CREATING ROOT USER
           $role=0;
           $res = insertUser($name,$mail,$pswd,$role);
           if($res==0){
             die("#004 unable to read or write on the database!");
           }
+
+          @$remoteV = file_get_contents('homeflix/master/installer/version.txt');
+          $remoteV = floatval($remoteV);
+          $res = setVersion($remoteV);
+          if($res==0){
+            die("#011 unable to read or write on the database!");
+          }
+
 
           if(!unlink("homeflix/installer/instal.php")){
               die("#010 unable to erase the installer!");
