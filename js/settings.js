@@ -249,7 +249,9 @@ function checkUpdate(){
 function update(){
     $('#myModal').modal('show');
 	$.get("installer/update.php",function(data){
-	       alert(data);
+           var modal = $('#myModal');
+           modal.find('.modal-title').html("Change Log");
+           modal.find('.modal-body').html('<textarea readonly >'+data+'</textarea>');
 
 	});
 }

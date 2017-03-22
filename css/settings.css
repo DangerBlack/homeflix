@@ -16,3 +16,7 @@
 	vertical-align: middle;
 	margin-top:8px;
 }
+#myModal textarea{
+	width:100%;
+	min-height: 200px;
+}
