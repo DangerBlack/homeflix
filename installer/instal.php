@@ -123,9 +123,15 @@ ini_set('display_errors', 1);
             die("#004 unable to read or write on the database!");
           }
 
+          if(!unlink("homeflix/installer/instal.php")){
+              die("#010 unable to erase the installer!");
+          }
+
           if(!unlink("instal.php")){
               die("#009 unable to erase the installer!");
           }
+
+
 
           /*
           TODO install composer and update!!!

@@ -10,3 +10,9 @@
 #fedsecret:hover{
 	background-color: white;
 }
+
+#enableUpdate{
+	display:none;
+	vertical-align: middle;
+	margin-top:8px;
+}

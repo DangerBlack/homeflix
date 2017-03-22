@@ -31,6 +31,9 @@ function initSettings(){
         $("#mail").val(js[0].mail);
         memRuolo=js[0].role;
         $("#ruolo").html(getRuoloSelect(js[0].role));
+        if(memRuolo<=1){
+            checkUpdate();
+        }
     });
     $(".updatePswd").click(function(){
         var pswd=$("#oldpswd").val();
@@ -227,4 +230,26 @@ function getRuoloSelect(ruolo){
         s=s+='<option value="'+i+'" >'+ruoli[i]+'</option>';
     }
     return s;
+}
+
+function checkUpdate(){
+	$.get("php/checkUpdate.php",function(data){
+		if((data!=403)&&(data!=-1)){
+			//alert("Nuovi contenuti rilevati!");
+			$("#enableUpdate").show();
+            $("#updateVersion").html(data);
+            $("#enableUpdate").click(function(res){
+                $("#enableUpdate").hide();
+                update();
+            });
+		}
+	});
+}
+
+function update(){
+    $('#myModal').modal('show');
+	$.get("installer/update.php",function(data){
+	       alert(data);
+
+	});
 }

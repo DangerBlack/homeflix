@@ -1,9 +1,15 @@
 <?php
+
     $BASE_PATH = "..";
-    if (!file_exists($BASE_PATH."/php/config.php")) {
-        die("#007 config.php not found!!!");
+    require_once($BASE_PATH."/php/query.php");
+
+    if(!isLogged()){
+        die("403");
     }
-    require_once($BASE_PATH."/php/config.php");
+
+    if(getRole()>1){
+        die("403");
+    }
 
     error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
     ini_set('display_errors', 1);
@@ -79,6 +85,7 @@
 
         return $modifiche;
     }
+    /*
     function connect(){
       global $BASE_PATH;
       require_once($BASE_PATH."/php/Medoo.php");
@@ -88,22 +95,7 @@
                 'database_file' => $BASE_PATH.'/archive/hf.sqlite'
         ]);
       return $database;
-    }
-    function getVersion(){
-      $database=connect();
-      $res=$database->select("version",[
-          "id",
-          "version"
-      ],[
-          "post.status[=]"=>1,
-          "ORDER"=>["time"=>"DESC"],
-      ]);
-      if(count($res)>0){
-          return $res[0]['version'];
-      }else{
-          return 0;
-      }
-    }
+  }*/
 
     function deleteDirectory($dir) {
         if (!file_exists($dir)) {
@@ -144,7 +136,7 @@
             $update = [];
         }
         foreach ($update as $file) {
-            if($file != "." && $file != ".."){
+            if($file != "." && $file != ".."){//check if file contain _
                 $num = explode("_",$file)[1];  //FILE SHOULD HAVE THIS FORM update_1.0_v.php => 1.0 versione
                 $num = floatval($num);
                 if($num>$v){

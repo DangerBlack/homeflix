@@ -484,4 +484,20 @@ ini_set('display_errors', 1);
         ]);
         return $res;
     }
+
+    function getVersion(){
+      $database=connect();
+      $res=$database->select("version",[
+          "id",
+          "version"
+      ],[
+          "post.status[=]"=>1,
+          "ORDER"=>["time"=>"DESC"],
+      ]);
+      if(count($res)>0){
+          return $res[0]['version'];
+      }else{
+          return 0;
+      }
+    }
 ?>
