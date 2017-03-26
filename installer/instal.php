@@ -159,11 +159,14 @@ ini_set('display_errors', 1);
           */
 
           shell_exec("curl -sS https://getcomposer.org/installer | php");
-          unlink("composer.lock");
+          #unlink("composer.lock");
           shell_exec("php composer.phar install");
 
 
           //REMOVE pack.zip TODO
+          if(!unlink("pack.zip")){
+              die("#012 unable to erase the pack.zip!\n");
+          }
 
           die("201");
       }else{
