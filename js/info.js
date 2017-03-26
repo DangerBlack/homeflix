@@ -48,6 +48,8 @@ function loadInfo(hash){
 
         $(".youtube").attr("href","https://www.youtube.com/results?search_query="+js.title.replace(" ","+")+"+trailer");
 
+        $(".details").attr("href","https://www.google.com/search?q="+js.title.replace(" ","+")+"");
+
         if(js.watched.length==0){
             $("#lastseen").hide();
         }

@@ -12,7 +12,6 @@
 	$name=$_POST['name'];
 	$mail=$_POST['mail'];
 	$role=$_POST['role'];/*check privilege escalation*/
-	$branca=$_POST['branca'];
 	if(($id==getId())&&(getRole()<=$role)){//Mi sto cambiando il privilegio da solo (posso solo scendere di privilegio (numeri più grandi))
 		if(updateUserInfo($id,$name,$mail,$role)!=0)
 			echo 202;

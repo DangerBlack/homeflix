@@ -157,12 +157,12 @@ function initSettings(){
 
         $(".deleteUser").click(function(){
             var id=$(this).val();
-            var nome=$(this).attr('nome');
-            var risp = prompt('Vuoi eliminare definitivamente l\'utente '+nome+'?\nIl processo è irreversibile!!!\nPer favore digita Si', "No");
-            if ((risp == "si")||(risp == "Si")) {
+            var name=$(this).attr('nome');
+            var risp = prompt('Do you like to erase the user '+name+'?\nProcess can not be inverted!!!\nPlease digit Yes', "No");
+            if ((risp == "yes")||(risp == "Yes")) {
                 $.post('php/deleteUser.php',{'id':id},function(data){
                     if(data==204){
-                        console.log("cancellato ! ");
+                        console.log("deleted ! ");
                         location.reload();
                     }
                 });
@@ -177,7 +177,7 @@ function initSettings(){
             $("#fedList").append('<li class="media">'+
                                     '<div class="list-group-item">'+
                                         '<p>'+
-                                          '<button class="btn btn-xs btn-danger deleteUser" value="'+p.id+'" nome="'+p.name+'"> <span class="glyphicon glyphicon-trash"></span> </button> '+
+                                          '<button class="btn btn-xs btn-danger deleteFed" value="'+p.id+'" name="'+p.name+'"> <span class="glyphicon glyphicon-trash"></span> </button> '+
                                           '<span><b>'+p.name+':</b></span> '+
                                           '<span>'+p.url+'</span>'+
                                         '</p>'+
@@ -187,7 +187,7 @@ function initSettings(){
 
         $(".deleteFed").click(function(){
             var id=$(this).val();
-            var nome=$(this).attr('name');
+            var name=$(this).attr('name');
             var risp = prompt('Do you like to erase the element '+name+'?\nProcess can not be inverted!!!\nPlease digit Yes', "No");
             if ((risp == "yes")||(risp == "Yes")) {
                 $.post('php/deleteFed.php',{'id':id},function(data){

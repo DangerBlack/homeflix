@@ -517,6 +517,13 @@ ini_set('display_errors', 1);
 		]);
         return $res;
     }
+    function deleteFed($id){
+        $database=connect();
+		$res=$database->delete("federation",[
+            "id[=]"=>$id
+		]);
+        return $res;
+    }
     function checkFed($secret){
         $localSecret = getFedSecret();
         if($localSecret === $secret){
