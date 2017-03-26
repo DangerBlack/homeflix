@@ -287,6 +287,7 @@ ini_set('display_errors', 1);
         $res["genres"]=getGenres($res['id']);
         $res["watched"]=getWatched($res['id']);
         $res["favorite"]=isFavorite($res['id']);
+        $res["mylist"]=isMyList($res['id']);
 		return $res;
     }
 
@@ -366,6 +367,58 @@ ini_set('display_errors', 1);
             "idmovie[=]"=>$idmovie,
             "ORDER"=>["time"=>"DESC"],
             "LIMIT"=>10
+        ]);
+        return $res;
+    }
+
+    function addMyList($idmovie){
+        $iduser=getId();
+        $database=connect();
+		$res=$database->insert("mylist",[
+			"idmovie"=>$idmovie,
+            "iduser"=>$iduser
+		]);
+        return $res;
+    }
+    function deleteMyList($idmovie){
+        $iduser=getId();
+        $database=connect();
+        $res=$database->delete("mylist",[
+			"AND"=>[
+                "idmovie[=]"=>$idmovie,
+                "iduser[=]"=>$iduser
+            ]
+		]);
+        return $res;
+    }
+    function isMyList($idmovie){
+        $iduser=getId();
+        $database=connect();
+		$res=$database->has("mylist",[
+			"AND"=>[
+                "idmovie[=]"=>$idmovie,
+                "iduser[=]"=>$iduser
+            ]
+		]);
+        return $res;
+    }
+    function getMyList(){
+        $iduser = getId();
+        $database=connect();
+		$res=$database->select("mylist",
+                ["[>]movie"=>["idmovie"=>"id"]
+            ],[
+                "movie.id",
+                "movie.hash",
+    			"movie.title",
+    			"movie.url",
+                "movie.filetime",
+                "movie.backdrop_path",
+                "movie.folder",
+                "movie.confirmed"
+		],[
+            "mylist.iduser[=]"=>$iduser,
+            "ORDER"=>["mylist.time"=>"DESC"],
         ]);
         return $res;
     }

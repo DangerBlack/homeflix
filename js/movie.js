@@ -8,8 +8,12 @@ function loadKey(callback){
 function loadMovie(key,folder,order){
     $.get("php/getMovieList.php",{"order":order,"folder":folder},function(data){
         $("#movielist").html("");
-        if(order=="time"){
+        if(order=="time" && folder==""){
             $("#foldername").text("Section new releases");
+        }else
+        if(order == "time" && folder=="mylist")
+        {
+            $("#foldername").text("MyList");
         }else{
             $("#foldername").text("Section "+global_folder[folder]);
         }

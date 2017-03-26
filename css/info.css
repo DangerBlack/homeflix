@@ -9,6 +9,11 @@ body{
 }
 #favorite{
     color:red !important;
+    cursor: pointer;
+}
+#mylist{
+    color:red !important;
+    cursor: pointer;
 }
 .full{
     margin-top: 125px;

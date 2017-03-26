@@ -57,8 +57,16 @@ function loadInfo(hash){
         $("#favorite").val(false);
         if(js.favorite==true){
             $("#favorite").val(true);
-            $("#favorite").html('<span class="glyphicon glyphicon-heart" aria-hidden="true"></span> Preferiti');
+            $("#favorite").html('<span class="glyphicon glyphicon-heart" aria-hidden="true"></span> Favorite');
         }
+
+        $("#mylist").val(false);
+        if(js.mylist==true){
+            $("#mylist").val(true);
+            $("#mylist").html('<span class="glyphicon glyphicon-ok" aria-hidden="true"></span> MyList');
+        }
+
+
         $("#favorite").click(function(){
             var value=$("#favorite").val();
             if(!value){
@@ -68,6 +76,19 @@ function loadInfo(hash){
             }else{
                 $.get("php/deleteFavorite.php",{"id":js.id},function(data){
                     $("#favorite").html('<span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span> Preferiti');
+                });
+            }
+        });
+
+        $("#mylist").click(function(){
+            var value=$("#favorite").val();
+            if(!value){
+                $.get("php/addMyList.php",{"id":js.id},function(data){
+                    $("#mylist").html('<span class="glyphicon glyphicon-ok" aria-hidden="true"></span> MyList');
+                });
+            }else{
+                $.get("php/deleteMyList.php",{"id":js.id},function(data){
+                    $("#mylist").html('<span class="glyphicon glyphicon-heart-plus" aria-hidden="true"></span> MyList');
                 });
             }
         });

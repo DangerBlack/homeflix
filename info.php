@@ -79,7 +79,7 @@
                       <article id="overview">
                           <p >A lot of interesting stuff!</p>
                       </article>
-                      <p id="favorite"><span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span> Preferiti</p>
+                      <p ><span id="favorite"><span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span> Favorite</span> <span id="mylist"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> MyList</span></p>
                       <p><a href="#" class="youtube"><span class="glyphicon glyphicon-facetime-video" aria-hidden="true"></span> TRAILER</a></p>
                       <p><a href="#" class="details"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> DETAILS</a></p>
                       <p><a href="#" class="comment addComment" data-toggle="modal" data-target="#myModal" data-whatever="@Commento"><span class="glyphicon glyphicon-comment" aria-hidden="true"></span> COMMENTS</a></p>

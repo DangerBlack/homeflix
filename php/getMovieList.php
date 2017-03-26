@@ -12,6 +12,10 @@ ini_set('display_errors', 1);
     if($folder=="default"){
         $folder = $DEFAULT_FOLDER;
     }
-    echo json_encode(getMovieList($folder,$order));
 
+    if($folder == "mylist"){
+        echo json_encode(getMyList());
+    }else{
+        echo json_encode(getMovieList($folder,$order));
+    }
  ?>
