@@ -119,7 +119,9 @@ ini_set('display_errors', 1);
           function setVersion($version){
             $database=connect();
             $res=$database->insert("version",[
-                "version"=>$version
+                "version"=>$version,
+                "status"=>1,
+                "description"=>"Installed from instal.php"
             ]);
             return $res;
           }
