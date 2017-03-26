@@ -27,7 +27,7 @@ php composer.phar install
 ```
 sudo a2enmod rewrite (enable mod rewrite for .htaccess)
 sudo nano /etc/apache2/apache2.con (set ALL le AllowOverride None)
-sudo service apache reload
+sudo service apache2 reload
 ```
 
 once installed mediacenter will be in: *mywebsite*/homeflix
