@@ -83,14 +83,14 @@ function loadInfo(hash){
         });
 
         $("#mylist").click(function(){
-            var value=$("#favorite").val();
+            var value=$("#mylist").val();
             if(!value){
                 $.get("php/addMyList.php",{"id":js.id},function(data){
                     $("#mylist").html('<span class="glyphicon glyphicon-ok" aria-hidden="true"></span> MyList');
                 });
             }else{
                 $.get("php/deleteMyList.php",{"id":js.id},function(data){
-                    $("#mylist").html('<span class="glyphicon glyphicon-heart-plus" aria-hidden="true"></span> MyList');
+                    $("#mylist").html('<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> MyList');
                 });
             }
         });
