@@ -24,6 +24,8 @@ function lazyScanFolders(){
 		if(data>0){
 			//alert("Nuovi contenuti rilevati!");
 			location.reload();
+		}else{
+			$("#isloading").hide();
 		}
 	});
 }
