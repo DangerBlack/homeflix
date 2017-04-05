@@ -66,6 +66,9 @@ ini_set('display_errors', 1);
 		],[
 			"id[=]"=>$id
 		]);
+        if($res[0]['img']==null){
+            $res[0]['img']="user.jpg";
+        }
 		return $res;
 	}
     function getUserList(){
@@ -77,7 +80,15 @@ ini_set('display_errors', 1);
             "role",
             "img"
 		]);
-		return $res;
+
+
+        foreach($res as &$r){
+            if($r['img']==null){
+                $r['img']="user.jpg";
+            }
+        }
+
+        return $res;
 	}
     /*
         0: root

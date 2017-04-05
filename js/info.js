@@ -94,6 +94,19 @@ function loadInfo(hash){
                 });
             }
         });
+
+        $.get("php/getMovieQuality.php",{"movie":hash},function(data){
+            var js=JSON.parse(data);
+            //var k =Object.keys(js);
+            for(var i=0;i<js.length;i++){
+                if(js[i].info.vote>=7){
+                    $("#moviequality").append('<span class="qinfo qgood" title="'+js[i].info.short+'" >'+js[i].name+'</span>');
+                }else{
+                    $("#moviequality").append('<span class="qinfo qbad" title="'+js[i].info.short+'" >'+js[i].name+' <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span></span>');
+                }
+            }
+        });
+
     });
 
     $('#myModal').on('show.bs.modal', function (event) {

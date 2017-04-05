@@ -26,7 +26,7 @@ function initSettings(){
 
     $.get("php/getUserInfo.php",function(data){
         var js=JSON.parse(data);
-        $(".photo").attr("src","archive/photo/"+js[0].img);
+        $(".photo").attr("src","archive/bigphoto/"+js[0].img);
         $("#user").val(js[0].name);
         $("#mail").val(js[0].mail);
         memRuolo=js[0].role;

@@ -38,8 +38,8 @@
     if(checkSecretKey($key)){
         if(! is_dir($attachment_location)){
             $url = explode("/",$movie)[1];
-            //$idmovie = getMovieFromUrl($url);
-            //insertWatched($idmovie,$key); //RIATTIVARE!
+            $idmovie = getMovieFromUrl($url);
+            insertWatched($idmovie,$key); //RIATTIVARE!
             /*header($_SERVER["SERVER_PROTOCOL"] . " 200 OK");
             header("Cache-Control: public"); // needed for internet explorer
             header("Content-Type: ".mime_content_type($attachment_location));
