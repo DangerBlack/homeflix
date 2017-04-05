@@ -248,10 +248,20 @@ function checkUpdate(){
 
 function update(){
     $('#myModal').modal('show');
-	$.get("installer/update.php",function(data){
-           var modal = $('#myModal');
-           modal.find('.modal-title').html("Change Log");
-           modal.find('.modal-body').html('<textarea readonly >'+data+'</textarea>');
+    var modal = $('#myModal');
+    modal.find('.modal-title').html("Please Make login again");
+    modal.find('.modal-body').html('<label for="inputName" class="sr-only">Username</label>'+
+                                    '<input type="text" id="utente" class="form-control" placeholder="User" required autofocus>'+
+                                    '<label for="inputPassword" class="sr-only">Password</label>'+
+                                    '<input type="password" id="pswd" class="form-control" placeholder="Password" required>');
 
-	});
+    $("#send").click(function(){
+        var name = $("#utente").val();
+        var pswd = $("#pswd").val();
+        alert("name: "+name+" \npswd: "+pswd);
+        $.post("installer/updater.php",{"name":name,"pswd":pswd},function(data){
+               modal.find('.modal-title').html("Change Log");
+               modal.find('.modal-body').html('<textarea readonly >'+data+'</textarea>');
+    	});
+    });
 }

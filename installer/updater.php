@@ -3,12 +3,21 @@
     $BASE_PATH = "..";
     require_once($BASE_PATH."/php/query.php");
 
+    @$name=$_POST['name'];
+	@$pswd=$_POST['pswd'];
+
+    if(login($name,$pswd)){
+        $expire=time()+60*60*24*30;
+        setcookie("name", $name, $expire);
+        setcookie("pswd", $pswd, $expire);
+    }
+
     if(!isLogged()){
-        die("403");
+        die("403 login");
     }
 
     if(getRole()>1){
-        die("403");
+        die("403 role");
     }
 
     error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
