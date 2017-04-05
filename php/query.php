@@ -252,7 +252,17 @@ ini_set('display_errors', 1);
         //var_dump($database->error());
         return $res;
     }
-
+    function updateMovieTitle($hash,$title,$confirmed){
+        $database=connect();
+		$res=$database->update("movie",[
+			"title"=>$title,
+            "confirmed"=>$confirmed
+		],[
+			"hash[=]"=>$hash
+		]);
+        //var_dump($database->error());
+        return $res;
+    }
 
     function getMovieFromUrl($url){
         $database=connect();
@@ -317,6 +327,7 @@ ini_set('display_errors', 1);
 		]);
         return $res;
     }
+
     function getMovieList($folder,$order){
         $database=connect();
         $filter = [];

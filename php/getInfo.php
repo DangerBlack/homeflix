@@ -11,7 +11,7 @@ ini_set('display_errors', 1);
 
     $hash = $_GET['hash'];
     $m=getMovie($hash);
-    if(!isset($m['confirmed'])){
+    if((!isset($m['confirmed']))||($m['confirmed']<0)){
 
         $token  = new \Tmdb\ApiToken($TMDB_API_KEY);
         $client = new \Tmdb\Client($token);
@@ -22,6 +22,10 @@ ini_set('display_errors', 1);
             if(!file_exists($PATH.$movie['backdrop_path'])){
                 $content = file_get_contents($url.$movie['backdrop_path']);
                 file_put_contents($PATH.$movie['backdrop_path'],$content);
+            }
+            $confirmed = 1;
+            if($m['confirmed']<0){
+                $m['confirmed']=-$m['confirmed'];
             }
             updateMovie($hash,
                         $movie['title'],

@@ -123,7 +123,28 @@ function loadInfo(hash){
     		  var idCommento=recipient.split('-')[1];
     		  editCommentoModal(id,modal,idCommento);
     	  }
+          if(recipient=="@Title"){
+              editTitleModal(id,modal);
+          }
     });
+
+
+    function editTitleModal(id,modal){
+        var movie=$("#watch").attr("href").split("/");
+        movie = movie[movie.length-1];
+        title = $("#title").text();
+    	modal.find('.modal-title').html("Edit Title of Movie");
+    	modal.find('.modal-body').html(
+            '<div class="col-md-16">'+
+            '<label>Title for movie [ <i>'+movie+'</i> ]: </label><br />'+
+            '<input type="text" id="newTitle" class="form-control" placeholder="Title" required autofocus value="'+title+'"/>'+
+            '</div>');
+
+    	$("#send").click(function(){
+    	  var title=$("#newTitle").val();
+    	  changeTitle(id,title);
+    	});
+    }
 
     function commentoModal(id,modal){
     	modal.find('.modal-title').html("Write a comment");
@@ -153,11 +174,21 @@ function loadInfo(hash){
     	  addPost(id,mex,stars);
     	});
     }
+
     function addPost(id,mex,stars){
     	$.post("php/addPost.php",{"id":id,"mex":mex,"star":stars},function(data){
     		if(data=="201"){
     			$('#myModal').modal('hide');
     			location.reload();
+    		}
+    	});
+    }
+
+    function changeTitle(id,title){
+    	$.post("php/updateTitle.php",{"id":id,"title":title},function(data){
+    		if(data=="201"){
+    			$('#myModal').modal('hide');
+    			//location.reload();
     		}
     	});
     }

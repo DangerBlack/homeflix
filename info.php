@@ -69,7 +69,7 @@
       <div class="starter-template">
           <div class="row">
               <div class="col-md-4 description">
-                  <h1 id="title">Title</h1>
+                  <button id="edittitle" class="btn btn-xs btn-primary right" data-toggle="modal" data-target="#myModal" data-whatever="@Title" alt="edit" title="edt"><span class="glyphicon glyphicon-pencil"></span></button><h1 id="title">Title </h1>
                   <p>
                       <span id="stars">
                           <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
