@@ -50,6 +50,9 @@
             <li><a href="index.html">Home</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
+              <li id="isloadinginfo" class="loading-tab">
+                  <a href="#" class="label-warning">Loading <span class="glyphicon glyphicon-refresh"></span></a>
+              </li>
 			  <li class="dropdown">
 				  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" >Utility <span class="caret"></span></a>
 				  <ul class="dropdown-menu">

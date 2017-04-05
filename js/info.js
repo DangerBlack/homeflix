@@ -106,7 +106,7 @@ function loadInfo(hash){
                 }
             }
         });
-
+        $("#isloadinginfo").hide();
     });
 
     $('#myModal').on('show.bs.modal', function (event) {
