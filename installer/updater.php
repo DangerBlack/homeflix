@@ -30,21 +30,32 @@
         echo "path old: ".$old."\n";
         echo "path new: ".$new."\n";
 
-        @$old_f = scandir($old);
-        @$new_f = scandir($new);
+        if(is_dir($old)||is_dir($new)){
 
-        if($old_f === false){
-            echo "Crea cartella!!!\n";
-            mkdir($old, 0775);
-            return 0;
-        }
-        if(($new_f === false)){
-            echo $new." non sono esistenti questi path!\n";
-            $res = deleteDirectory($old);
-            if(!$res){
-                echo "#004 ERROR: CAN NOT DELETE DIR! ".$old."\n";
+            @$old_f = scandir($old);
+            @$new_f = scandir($new);
+
+            if($old_f === false){
+                echo "Crea cartella!!!\n";
+                mkdir($old, 0775);
+                return 0;
             }
-            return 1;
+            if(($new_f === false)){
+                echo $new." non sono esistenti questi path!\n";
+                $res = deleteDirectory($old);
+                if(!$res){
+                    echo "#004 ERROR: CAN NOT DELETE DIR! ".$old."\n";
+                }
+                return 1;
+            }
+        }else{
+            $modifiche++;
+            echo "COPY FILE ".$new."\n";
+            $res = copy($new,$old);
+            if(!$res){
+                echo "#003 ERROR: CAN NOT COPY FILE! ".$new."\n";
+            }
+            return $modifiche;
         }
 
         foreach ($old_f as $file) {
