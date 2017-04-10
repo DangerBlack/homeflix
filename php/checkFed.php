@@ -3,6 +3,9 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 	require_once("query.php");
 
+    if(!isLogged())
+		die("Non sei loggato");
+
     function get_url($request_url) {
 		  $ch = curl_init();
 		  curl_setopt($ch, CURLOPT_URL, $request_url);
