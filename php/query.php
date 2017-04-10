@@ -573,8 +573,8 @@ ini_set('display_errors', 1);
           "id",
           "version"
       ],[
-          "post.status[=]"=>1,
-          "ORDER"=>["time"=>"DESC"],
+          "status[=]"=>1,
+          "ORDER"=>["id"=>"DESC"],
       ]);
       if(($res!=null) && (count($res)>0)){
           return $res[0]['version'];
