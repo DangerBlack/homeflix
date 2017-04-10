@@ -576,7 +576,7 @@ ini_set('display_errors', 1);
           "post.status[=]"=>1,
           "ORDER"=>["time"=>"DESC"],
       ]);
-      if(count($res)>0){
+      if(($res!=null) && (count($res)>0)){
           return $res[0]['version'];
       }else{
           return 0;

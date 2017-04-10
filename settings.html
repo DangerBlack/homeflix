@@ -28,14 +28,20 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="js/d3.v4.min.js"></script>
+<script src="js/c3.min.js"></script>
 
 <script type="text/javascript"  src="js/default.js"></script>
 <script type="text/javascript"  src="js/settings.js"></script>
+<script type="text/javascript"  src="js/graph.js"></script>
 
 <style>
     img.media-object{
         min-width: 100px;
         max-width: 100px;
+    }
+    label{
+        font-weight: bold !important;
     }
 </style>
  <script type="text/javascript" >
@@ -85,7 +91,7 @@
 			<h1>Settings
 			</h1>
 		</div>
-		<div class="row">
+		<div id="bodysettings" class="row">
 
 			<div class="panel panel-default">
 				<div class="panel-heading">User Info</div>
@@ -156,7 +162,6 @@
                     </div>
 				</div>
 			</div>
-
             <div class="panel panel-default federationpanel">
 				<div class="panel-heading">Federation</div>
 				<div class="panel-body">
@@ -174,6 +179,27 @@
             				</button>
                         </div>
                     </div>
+				</div>
+			</div>
+
+            <div class="panel panel-default">
+				<div class="panel-heading">Data Graph</div>
+				<div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-6"><div id="chart"></div></div>
+                        <div class="col-md-6">
+                            <h3>Disk space</h3>
+                            <p><label>Free Space:</label> <span id="free_space"></span></p>
+                            <p><label>Used Space:</label> <span id="used_space"></span></p>
+                            <p><label>Total Space:</label> <span id="total_space"></span></p>
+                            <h3>System Info</h3>
+                            <p><label>Cpu Temp:</label> <span id="cpu_temp"></span></p>
+                            <p><label>Uptime:</label> <span id="uptime"></span></p>
+                            <p><label>Load 15 minute:</label> <span id="load_15_minute"></span></p>
+                            <p><label>Version:</label> <span id="version"></span></p>
+                        </div>
+                    </div>
+
 				</div>
 			</div>
 		</div>

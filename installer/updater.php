@@ -137,6 +137,16 @@
         return rmdir($dir);
     }
 
+    function setVersion($version){
+      $database=connect();
+      $res=$database->insert("version",[
+          "version"=>$version,
+          "status"=>1,
+          "description"=>"Installed from updater.php"
+      ]);
+      return $res;
+    }
+
     //DOWNLOAD THE FILE
     $content = file_get_contents('https://github.com/DangerBlack/homeflix/archive/master.zip');
     file_put_contents("pack.zip",$content);
@@ -168,8 +178,8 @@
         }
 
         //php composer.phar update!!!
-        shell_exec("cd ".$BASE_PATH.";curl -sS https://getcomposer.org/installer | php");
-        shell_exec("cd ".$BASE_PATH.";php composer.phar update");
+        //shell_exec("cd ".$BASE_PATH.";curl -sS https://getcomposer.org/installer | php");
+        //shell_exec("cd ".$BASE_PATH.";php composer.phar update");
         //shell_exec("cd ".$BASE_PATH.";composer update");
 
         if(!unlink("pack.zip")){
@@ -179,6 +189,18 @@
         if(!deleteDirectory("homeflix-master")){
             die("#006 unable to erase the homeflix-master!\n");
         }
+
+        if(!unlink("homeflix/installer/instal.php")){
+            die("#007 unable to erase the installer!");
+        }
+
+        @$remoteV = file_get_contents('homeflix/master/installer/version.txt');
+        $remoteV = floatval($remoteV);
+        $res = setVersion($remoteV);
+        if($res==0){
+          die("#008 unable to read or write on the database!");
+        }
+
     }else{
         die("#001 fail to open the zip packet!\n");
     }

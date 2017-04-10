@@ -34,24 +34,17 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
     <script type="text/javascript" src="js/default.js" ></script>
-    <script type="text/javascript" src="js/movie.js" ></script>
     <script type="text/javascript" >
         $(document).ready(function(){
             isLogged();
-            loadKey(function(key){
-                getMovieFolder(key);
-                loadMovie(key,"","time");
-
-                $("#news").click(function(){
-                    loadWrap(key,"","time");
-                });
-                $("#mylist").click(function(){
-                    loadWrap(key,"mylist","time");
-                });
-            });
-
         });
     </script>
+    <style>
+        #transframe{
+            width:100%;
+            height:500px;
+        }
+    </style>
   </head>
 
   <body>
@@ -69,18 +62,13 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul id="movieFolder" class="nav navbar-nav">
-            <li class="active default"><a href="#" id="news">News</a></li>
-            <li class="default"><a href="#" id="mylist">MyList</a></li>
+            <li class="default"><a href="index.html" id="news">Home</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-              <li id="isloading" class="loading-tab">
-                  <a href="#" class="label-warning">Loading <span class="glyphicon glyphicon-refresh"></span></a>
-              </li>
 			  <li class="dropdown">
 				  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" >Utility <span class="caret"></span></a>
 				  <ul class="dropdown-menu">
 					  <li><a href="settings.html"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Settings</a></li>
-					  <li><a href="download.php"><span class=" glyphicon glyphicon-download" aria-hidden="true"></span> Download</a></li>
 				  </ul>
 			  </li>
           </ul>
@@ -91,9 +79,12 @@
     <div class="container-fluid shorten">
 
       <div class="starter-template">
-        <h1 id="foldername">Movie Folder</h1>
-        <div id="movielist">
-        </div>
+        <h1 id="foldername">Download</h1>
+        <?php
+            require_once("php/config.php");
+            $server = exec('curl http://ipecho.net/plain; echo');
+            echo '<iframe id="transframe" src="http://'.$server.':'.$TRANSMISSION_PORT.'" ></iframe>';
+        ?>
       </div>
 
     </div><!-- /.container -->

@@ -205,7 +205,7 @@ function initSettings(){
             }
         });
     });
-
+    loadGraph();
 
 }
 function addUser(name,mail,pswd,role){
