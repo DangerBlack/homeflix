@@ -567,6 +567,19 @@ ini_set('display_errors', 1);
         return $res;
     }
 
+    function getFedFromId($id){
+        $database=connect();
+		$res=$database->select("federation",[
+            "id",
+            "name",
+			"url",
+            "secret"
+		],[
+            "id[=]"=>$id
+        ]);
+        return $res[0];
+    }
+
     function getVersion(){
       $database=connect();
       $res=$database->select("version",[

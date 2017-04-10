@@ -179,10 +179,18 @@ function initSettings(){
                                         '<p>'+
                                           '<button class="btn btn-xs btn-danger deleteFed" value="'+p.id+'" name="'+p.name+'"> <span class="glyphicon glyphicon-trash"></span> </button> '+
                                           '<span><b>'+p.name+':</b></span> '+
-                                          '<span>'+p.url+'</span>'+
+                                          '<span>'+p.url+'</span> '+
+                                          '<span class="badge" id="status'+p.id+'"></span>'+
                                         '</p>'+
                                     '</div>'+
                                '</li>');
+            $.get("php/checkFed.php",{"id":p.id},function(data){
+                if(data==200){
+                    $("#status"+p.id).html('<span class="glyphicon glyphicon-ok"></span>');
+                }else{
+                    $("#status"+p.id).html('<span class="glyphicon glyphicon-remove"></span>');
+                }
+            });
         }
 
         $(".deleteFed").click(function(){

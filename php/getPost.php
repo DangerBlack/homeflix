@@ -28,9 +28,13 @@
 			//var_dump($postRes);
 			if($postRes!=="403"){
 				if($postRes!=="404"){
-					$postT=json_decode($postRes);
-					if($postT !== null)
+					$postT=json_decode($postRes, true);
+					if($postT !== null){
+						foreach($postT as &$p){
+				            $p['url']=$f['url'];
+				        }
 						$post = array_merge($post,$postT);
+					}
 				}
 			}
 		}

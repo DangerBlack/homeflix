@@ -201,11 +201,15 @@ function loadInfo(hash){
 
                 var post=p.mex.replace(/\n/g,"<br />");
                 post=wrapUrlPost(post);
+                var url = 'archive/photo/'+p.img;
+                if(p.url!=null){
+                    url = p.url+'/archive/photo/'+p.img;
+                }
                 $("#postlist").append(
                 '<div class="media">'+
                     '<div class="media-left">'+
                     '<a href="#">'+
-                      '<img class="media-object" src="archive/photo/'+p.img+'" alt="'+p.name+'">'+
+                      '<img class="media-object" src="'+url+'" alt="'+p.name+'">'+
                     '</a>'+
                  '</div>'+
                   '<div class="media-body">'+
