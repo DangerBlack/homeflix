@@ -190,11 +190,11 @@
             die("#006 unable to erase the homeflix-master!\n");
         }
 
-        if(!unlink("homeflix/installer/instal.php")){
+        if(!unlink("instal.php")){
             die("#007 unable to erase the installer!");
         }
 
-        @$remoteV = file_get_contents('homeflix/master/installer/version.txt');
+        @$remoteV = file_get_contents('version.txt');
         $remoteV = floatval($remoteV);
         $res = setVersion($remoteV);
         if($res==0){
