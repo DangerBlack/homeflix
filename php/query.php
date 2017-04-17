@@ -121,12 +121,14 @@ ini_set('display_errors', 1);
     function insertUser($name,$mail,$pswd,$role){
 		$database=connect();
         $salt = md5(microtime().rand());
+        $name = htmlspecialchars($name);
 		$res=$database->insert("user",[
 			"name"=>$name,
 			"mail"=>$mail,
 			"pswd"=>hash('sha256',$pswd.$salt),
             "salt"=>$salt,
-			"role"=>$role
+			"role"=>$role,
+            "img"=>"user.jpg"
 		]);
         $id=$database->id();
         if($id!=0){
@@ -143,6 +145,7 @@ ini_set('display_errors', 1);
 	}
     function updateUserInfo($id,$name,$mail,$role){
 		$database=connect();
+        $name = htmlspecialchars($name);
 		$res=$database->update("user",[
 			"name"=>$name,
 			"mail"=>$mail,
@@ -154,6 +157,7 @@ ini_set('display_errors', 1);
 	}
     function updateUserImage($id,$img){
 		$database=connect();
+        $img = htmlspecialchars($img);
 		$res=$database->update("user",[
 			"img"=>$img
 		],[
@@ -204,6 +208,7 @@ ini_set('display_errors', 1);
 
     function insertMovie($hash,$title,$url,$folder,$filetime){
         $database=connect();
+        $tile = htmlspecialchars($title);
 		$res=$database->insert("movie",[
 			"hash"=>$hash,
 			"title"=>$title,
@@ -217,6 +222,7 @@ ini_set('display_errors', 1);
 
     function insertGenres($id,$name){
         $database=connect();
+        $name = htmlspecialchars($name);
 		$res=$database->insert("genres",[
 			"name"=>$name,
 			"idmovie"=>$idmovie
@@ -234,6 +240,14 @@ ini_set('display_errors', 1);
     }
     function updateMovie($hash,$title,$url,$idapi,$overview,$vote_average,$vote_count,$release_date,$runtime,$backdrop_path,$folder,$confirmed){
         $database=connect();
+        $title = htmlspecialchars($title);
+        $url = htmlspecialchars($url);
+        $overview = htmlspecialchars($overview);
+        $vote_average = htmlspecialchars($vote_average);
+        $vote_count = htmlspecialchars($vote_count);
+        $release_date = htmlspecialchars($release_date);
+        $runtime = htmlspecialchars($runtime);
+        $backdrop_path = htmlspecialchars($backdrop_path);
 		$res=$database->update("movie",[
 			"title"=>$title,
 			"url"=>$url,
@@ -254,6 +268,7 @@ ini_set('display_errors', 1);
     }
     function updateMovieTitle($hash,$title,$confirmed){
         $database=connect();
+        $title = htmlspecialchars($title);
 		$res=$database->update("movie",[
 			"title"=>$title,
             "confirmed"=>$confirmed
@@ -480,6 +495,8 @@ ini_set('display_errors', 1);
     function addPost($idmovie,$mex,$star){
         $iduser=getId();
         $database=connect();
+        $mex = htmlspecialchars($mex);
+        $star = htmlspecialchars($star);
 		$res=$database->insert("post",[
 			"idmovie"=>$idmovie,
             "iduser"=>$iduser,
@@ -532,6 +549,8 @@ ini_set('display_errors', 1);
     function addFed($name,$url,$secret){
         $iduser=getId();
         $database=connect();
+        $name = htmlspecialchars($name);
+        $url = htmlspecialchars($url);
 		$res=$database->insert("federation",[
             "name"=>$name,
 			"url"=>$url,
