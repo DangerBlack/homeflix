@@ -4,6 +4,11 @@ A mediacenter for managing movies folder on your server
 
 ## installer
 
+**Install dependecies**
+
+```
+sudo apt-get install apache2 php libapache2-mod-php php-sqlite3 php-zip
+```
 
 **Install mediacenter**
 ```
@@ -26,7 +31,21 @@ php composer.phar install
 
 ```
 sudo a2enmod rewrite (enable mod rewrite for .htaccess)
-sudo nano /etc/apache2/apache2.con (set ALL le AllowOverride None)
+sudo nano /etc/apache2/apache2.conf (set ALL the AllowOverride None)
+```
+```
+<Directory />
+        Options FollowSymLinks
+        AllowOverride All
+        Require all denied
+</Directory>
+
+<Directory /usr/share>
+        AllowOverride None
+        Require all granted
+</Directory>
+```
+```
 sudo service apache2 reload
 ```
 
