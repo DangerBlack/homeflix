@@ -24,10 +24,14 @@ body{
 .movie:hover{
     color:black;
 }
-.movie p{
+.movie p{   
     text-shadow: 1px 1px 4px white;
-    font-size: 1.3em;
+    font-size: 1.3em;       
     overflow: hidden;
+background: -webkit-linear-gradient(transparent, gray);
+background: -moz-linear-gradient(transparent, gray);
+background: -o-linear-gradient(transparent, gray);
+background: linear-gradient(transparent, gray);
 }
 .play{
     font-size: 50px;
