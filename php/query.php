@@ -403,7 +403,8 @@ ini_set('display_errors', 1);
 		],[
             "idmovie[=]"=>$idmovie,
             "ORDER"=>["time"=>"DESC"],
-            "LIMIT"=>10
+            "LIMIT"=>10,
+            "GROUP" => "user.id"
         ]);
         return $res;
     }
