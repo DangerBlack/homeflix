@@ -188,7 +188,7 @@ function loadInfo(hash){
     	$.post("php/updateTitle.php",{"id":id,"title":title},function(data){
     		if(data=="201"){
     			$('#myModal').modal('hide');
-    			//location.reload();
+    			location.reload();
     		}
     	});
     }
