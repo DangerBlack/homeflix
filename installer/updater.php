@@ -27,8 +27,8 @@
         global $HIDDEN_PATH;
         $HIDDEN_PATH_TMP = explode("/",$HIDDEN_PATH)[1];
         $modifiche = 0;
-        echo "path old: ".$old."\n";
-        echo "path new: ".$new."\n";
+        //echo "path old: ".$old."\n";
+        //echo "path new: ".$new."\n";
 
         if(is_dir($old)||is_dir($new)){
 
@@ -36,12 +36,12 @@
             @$new_f = scandir($new);
 
             if($old_f === false){
-                echo "Crea cartella!!!\n";
+                echo "CREATED FOLDER: ".$old_f."\n";
                 mkdir($old, 0775);
                 return 0;
             }
             if(($new_f === false)){
-                echo $new." non sono esistenti questi path!\n";
+                //echo $new." non sono esistenti questi path!\n";
                 $res = deleteDirectory($old);
                 if(!$res){
                     echo "#004 ERROR: CAN NOT DELETE DIR! ".$old."\n";
@@ -50,7 +50,7 @@
             }
         }else{
             $modifiche++;
-            echo "COPY FILE ".$new."\n";
+            echo "COPY FILE: ".$new."\n";
             $res = copy($new,$old);
             if(!$res){
                 echo "#003 ERROR: CAN NOT COPY FILE! ".$new."\n";
@@ -68,7 +68,7 @@
                 }else{
                 if(! in_array($file, $new_f)){
                     $modifiche++;
-                    echo "DELETE FILE ".$complete_path_old."\n";
+                    echo "DELETE FILE: ".$complete_path_old."\n";
                     $res = unlink($complete_path_old);
                     if(!$res){
                         echo "#002 ERROR: CAN NOT DELETE FILE! ".$complete_path_old."\n";
@@ -81,7 +81,7 @@
                             //nothing do do
                         }else{
                             $modifiche++;
-                            echo "COPY FILE ".$complete_path_new."\n";
+                            echo "COPY FILE: ".$complete_path_new."\n";
                             $res = copy($complete_path_new,$complete_path_old);
                             if(!$res){
                                 echo "#003 ERROR: CAN NOT COPY FILE! ".$complete_path_old."\n";
@@ -93,8 +93,8 @@
             }
         }
 
-        if(count($new_f) > 2)
-            echo "Esistono nuove ".(count($new_f) - 2)." cartelle/file non copiati\n";
+        //if(count($new_f) > 2)
+        //    echo "Esistono nuove ".(count($new_f) - 2)." cartelle/file non copiati\n";
         foreach($new_f as $file){
             if($file != "." && $file != ".." && $file!="archive"){
                 $complete_path_new = $new."/".$file;
@@ -157,7 +157,7 @@
         $zip->extractTo('.');
         $zip->close();
         $res = compare_folder($BASE_PATH,"homeflix-master");
-        echo "modifiche fatte: ".$res."\n";
+        echo "CHANGES MADE: ".$res."\n";
 
         $v = getVersion();
 
@@ -170,9 +170,9 @@
                 $num = explode("_",$file)[1];  //FILE SHOULD HAVE THIS FORM update_1.0_v.php => 1.0 versione
                 $num = floatval($num);
                 if($num>$v){
-                    echo "INSTALLING THE VERSION ".$file."\n";
+                    echo "INSTALLING THE VERSION: ".$file."\n";
                     include("homeflix-master/installer/update/".$file);//RUN THE PROCESS
-                    echo "INSTALLED \n";
+                    echo "INSTALLED. \n";
                 }
             }
         }

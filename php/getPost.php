@@ -42,5 +42,8 @@
 	}
 
 	$post = getRemote($idmovie,$post); //TODO ENABLE THIS FEATURE
+	usort($post,function($a,$b){
+		return strtotime($a['time']) > strtotime($b['time']) ? -1 : 1;
+	});
 	echo json_encode($post);
 ?>
