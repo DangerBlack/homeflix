@@ -61,3 +61,15 @@ function toDBData(data){
 	}
 	return '';
 }
+
+function generateStar(vote){
+	var s='';
+    for(var i=0;i<5;i++){
+        if((i+1)<vote){
+            s+=('<span class="glyphicon glyphicon-star" aria-hidden="true"></span>');
+        }else{
+            s+=('<span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>');
+        }
+    }
+    return s;
+}

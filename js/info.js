@@ -1,15 +1,3 @@
-function generateStar(vote){
-    var s='';
-    for(var i=0;i<5;i++){
-        if(i<vote){
-            s+=('<span class="glyphicon glyphicon-star" aria-hidden="true"></span>');
-        }else{
-            s+=('<span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>');
-        }
-    }
-    return s;
-}
-
 function loadInfo(hash){
     var id;
     $.get("php/getInfo.php",{"hash":hash},function(data){

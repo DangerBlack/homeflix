@@ -33,13 +33,18 @@ function loadMovie(key,folder,order){
                 backdrop_path='archive/tmdb'+js[i].backdrop_path+'';
             }
             //alert(backdrop_path);
+
+            var stars = "";
+            if(js[i].vote_average!=null){
+                stars = generateStar(js[i].vote_average/2);
+            }
             $("#r_"+cidx).append('<div class="col-md-2 nopadding">'+
                                     "<a class=\"movie\" href=\"key/"+key+"/"+js[i].folder+"/"+js[i].url+"\" style=\"background-image: url("+backdrop_path+")\" >"+
                                         '<p>'+js[i].title+'</p>'+
                                         '<span class="play glyphicon glyphicon-play-circle"></span>'+
 
                                     '</a>'+
-                                    '<div class="more"><a href="info.php?movie='+js[i].hash+'" class="big"><span class="glyphicon glyphicon-chevron-down" ></span></a></div>'+
+                                    '<div class="more"><a href="info.php?movie='+js[i].hash+'" class="big"><span class="glyphicon glyphicon-chevron-down" ></span></a><span class="small_stars" alt="'+js[i].vote_average+'" title="'+js[i].vote_average+'">'+stars+'</span></div>'+
                                 '</div>');
 
         }

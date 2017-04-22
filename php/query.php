@@ -360,6 +360,7 @@ ini_set('display_errors', 1);
             "hash",
 			"title",
 			"url",
+            "vote_average",
             /*"idapi",
             "overview",
             "vote_average",
@@ -451,6 +452,7 @@ ini_set('display_errors', 1);
     			"movie.title",
     			"movie.url",
                 "movie.filetime",
+                "movie.vote_average",
                 "movie.backdrop_path",
                 "movie.folder",
                 "movie.confirmed"

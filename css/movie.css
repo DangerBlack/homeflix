@@ -59,3 +59,11 @@ body{
 .vpadding{
     margin-bottom:40px !important;
 }
+.small_stars{
+    text-shadow: 1px 1px 4px black;
+    font-size: 0.7em;
+    float:right;
+    position: absolute;
+    margin-top: -15px;
+    margin-left: 15px;
+}
